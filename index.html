@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETH Stock Token DApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Add a custom style for the disabled button */
+        .bg-disabled {
+            background-color: #d1d5db; /* gray-300 */
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">ETH Stock Token DApp</h1>
+        <button id="connectWallet" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Connect Wallet</button>
+        <div id="walletInfo" class="mt-4 hidden">
+            <p>Account: <span id="account"></span></p>
+            <p>ETH Balance: <span id="ethBalance"></span></p>
+            <p>Token Balance: <span id="tokenBalance"></span></p>
+        </div>
+        <div id="ownerActions" class="mt-4 hidden">
+            <p>Contract ETH Balance: <span id="contractEthBalance"></span></p>
+            <button id="depositEther" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Deposit Ether</button>
+            <button id="withdrawEther" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Withdraw Ether</button>
+        </div>
+        <div class="mt-4">
+            <input id="tokenAmount" class="border rounded py-2 px-3 text-grey-darker" type="text" placeholder="Token Amount">
+            <input id="etherAmount" class="border rounded py-2 px-3 text-grey-darker" type="text" placeholder="Ether Amount">
+            <button id="placeBid" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Place Bid</button>
+        </div>
+        <div class="mt-4">
+            <input id="bidderAddress" class="border rounded py-2 px-3 text-grey-darker" type="text" placeholder="Bidder Address">
+            <button id="acceptBid" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Accept Bid</button>
+            <button id="rejectBid" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reject Bid</button>
+        </div>
+        <div class="mt-4">
+            <button id="withdrawBid" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Withdraw Bid</button>
+        </div>
+        <div class="mt-4">
+            <input id="stakeholders" class="border rounded py-2 px-3 text-grey-darker" type="text" placeholder="Stakeholder Addresses (comma separated)">
+        </div>
+        <div class="mt-4">
+            <input id="dividendAmount" class="border rounded py-2 px-3 text-grey-darker" type="text" placeholder="Total Dividend Amount">
+            <button id="distributeDividends" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Distribute Dividends</button>
+            <p id="distributeDividendsInfo" class="text-sm text-red-500 hidden">Please approve the transaction in MetaMask.</p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
