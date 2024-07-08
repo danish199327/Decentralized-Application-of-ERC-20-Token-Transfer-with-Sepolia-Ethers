@@ -608,6 +608,93 @@ document.getElementById('connectWallet').addEventListener('click', async () => {
     }
 });
 
+document.getElementById('placeBid').addEventListener('click', async () => {
+    console.log('Place Bid button clicked'); // Add log to check if button click is registered
+    const tokenAmount = document.getElementById('tokenAmount').value;
+    const etherAmount = document.getElementById('etherAmount').value;
+
+    if (contract && tokenAmount && etherAmount) {
+        const tokenAmountWei = web3.utils.toWei(tokenAmount, 'ether');
+        const etherAmountWei = web3.utils.toWei(etherAmount, 'ether');
+
+        console.log(`Placing bid with ${tokenAmount} ETHT and ${etherAmount} Ether`);
+
+        try {
+            await contract.methods.placeBid(tokenAmountWei).send({ from: account, value: etherAmountWei });
+            alert('Bid placed successfully');
+        } catch (error) {
+            console.error('Error placing bid:', error);
+            if (error.code === 4001) {
+                alert('Transaction denied. Please approve the transaction in MetaMask.');
+            } else {
+                alert('An error occurred while placing the bid. Check the console for details.');
+            }
+        }
+    } else {
+        alert('Please fill in all fields correctly.');
+    }
+});
+
+document.getElementById('acceptBid').addEventListener('click', async () => {
+    const bidderAddress = document.getElementById('bidderAddress').value;
+
+    if (contract && bidderAddress) {
+        try {
+            await contract.methods.acceptBid(bidderAddress).send({ from: account });
+            alert('Bid accepted successfully');
+        } catch (error) {
+            console.error('Error accepting bid:', error);
+            if (error.code === 4001) {
+                alert('Transaction denied. Please approve the transaction in MetaMask.');
+            } else {
+                alert('An error occurred while accepting the bid. Check the console for details.');
+            }
+        }
+    } else {
+        alert('Please fill in all fields correctly.');
+    }
+});
+
+document.getElementById('rejectBid').addEventListener('click', async () => {
+    const bidderAddress = document.getElementById('bidderAddress').value;
+
+    if (contract && bidderAddress) {
+        try {
+            await contract.methods.rejectBid(bidderAddress).send({ from: account });
+            alert('Bid rejected successfully');
+        } catch (error) {
+            console.error('Error rejecting bid:', error);
+            if (error.code === 4001) {
+                alert('Transaction denied. Please approve the transaction in MetaMask.');
+            } else {
+                alert('An error occurred while rejecting the bid. Check the console for details.');
+            }
+        }
+    } else {
+        alert('Please fill in all fields correctly.');
+    }
+});
+
+document.getElementById('withdrawBid').addEventListener('click', async () => {
+    console.log('Withdraw Bid button clicked'); // Add log to check if button click is registered
+
+    if (contract) {
+        try {
+            await contract.methods.withdrawBid().send({ from: account });
+            alert('Bid withdrawn successfully');
+        } catch (error) {
+            console.error('Error withdrawing bid:', error);
+            if (error.code === 4001) {
+                alert('Transaction denied. Please approve the transaction in MetaMask.');
+            } else {
+                alert('An error occurred while withdrawing the bid. Check the console for details.');
+            }
+        }
+    } else {
+        alert('Contract is not initialized.');
+    }
+});
+
 document.getElementById('distributeDividends').addEventListener('click', async () => {
     const stakeholders = document.getElementById('stakeholders').value.split(',').map(addr => addr.trim());
     const totalDividendAmount = document.getElementById('dividendAmount').value;
